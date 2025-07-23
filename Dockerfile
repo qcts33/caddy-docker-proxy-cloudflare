@@ -4,6 +4,7 @@ FROM caddy:${CADDY_VERSION}-builder AS builder
 
 # Build Caddy with the Cloudflare DNS module
 RUN xcaddy build \
+    --with github.com/lucaslorentz/caddy-docker-proxy/v2 \
     --with github.com/caddy-dns/cloudflare
 
 # Final stage
