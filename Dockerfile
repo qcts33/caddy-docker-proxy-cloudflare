@@ -2,7 +2,7 @@
 ARG CADDY_VERSION
 FROM caddy:${CADDY_VERSION}-builder AS builder
 
-# Build Caddy with the Cloudflare DNS module
+# Build Caddy with the Cloudflare and caddy-docker-proxy module 
 RUN xcaddy build \
     --with github.com/lucaslorentz/caddy-docker-proxy/v2 \
     --with github.com/caddy-dns/cloudflare
@@ -12,3 +12,5 @@ FROM caddy:${CADDY_VERSION}
 
 # Copy the custom-built Caddy binary
 COPY --from=builder /usr/bin/caddy /usr/bin/caddy
+
+CMD ["caddy", "docker-proxy"]
